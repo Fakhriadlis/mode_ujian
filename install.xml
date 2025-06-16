@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="local/mode_ujian/db" VERSION="2025051401" COMMENT="Database for local_mode_ujian">
+    <TABLES>
+
+        <TABLE NAME="local_mode_ujian" COMMENT="Status mode ujian per course">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Primary key"/>
+                <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="ID course"/>
+                <FIELD NAME="enabled" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" COMMENT="Status ON/OFF"/>
+                <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="Waktu pembuatan record"/>
+                <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="Waktu modifikasi terakhir"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+                <KEY NAME="courseid_fk" TYPE="foreign" FIELDS="courseid" REFTABLE="course" REFFIELDS="id"/>
+            </KEYS>
+        </TABLE>
+
+        <TABLE NAME="local_mode_ujian_hidden" COMMENT="Modules hidden by exam mode">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Primary key"/>
+                <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="ID course"/>
+                <FIELD NAME="coursemoduleid" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="ID modul di course_modules"/>
+                <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="Waktu perekaman hidden"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+                <KEY NAME="courseid_fk" TYPE="foreign" FIELDS="courseid" REFTABLE="course" REFFIELDS="id"/>
+                <KEY NAME="coursemodule_fk" TYPE="foreign" FIELDS="coursemoduleid" REFTABLE="course_modules" REFFIELDS="id"/>
+            </KEYS>
+            <INDEXES>
+                <INDEX NAME="courseid_idx" FIELDS="courseid" UNIQUE="false"/>
+                <INDEX NAME="coursemoduleid_idx" FIELDS="coursemoduleid" UNIQUE="false"/>
+            </INDEXES>
+        </TABLE>
+
+    </TABLES>
+</XMLDB>
